@@ -3,169 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Ultimate Attendance System</title>
+    <title>Enterprise Attendance System</title>
     <style>
+        /* ========== PROFESSIONAL DESIGN SYSTEM ========== */
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --primary-light: #6c8cff;
+            --secondary: #6c757d;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            padding: 1rem;
             display: flex;
-            justify-content: center;
             align-items: center;
-            padding: 16px;
+            justify-content: center;
         }
 
         .container {
             width: 100%;
-            max-width: 500px;
+            max-width: 28rem;
+            margin: 0 auto;
         }
 
+        /* ========== CARD COMPONENT ========== */
         .card {
             background: white;
-            border-radius: 24px;
-            padding: 32px 24px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            margin-bottom: 20px;
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s ease;
         }
 
-        h1 {
-            font-size: 28px;
-            color: #1a1a1a;
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        /* ========== HEADER ========== */
+        .header {
             text-align: center;
-            margin-bottom: 8px;
+            margin-bottom: 1.5rem;
         }
 
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 24px;
-            font-size: 16px;
+        .header h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.25rem;
         }
 
+        .header .subtitle {
+            color: var(--gray-500);
+            font-size: 0.875rem;
+        }
+
+        /* ========== STATS GRID (Everyone) ========== */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
         }
 
         .stat-card {
-            background: #f8fafc;
-            padding: 15px 5px;
-            border-radius: 12px;
+            background: linear-gradient(135deg, var(--gray-100), white);
+            padding: 1rem 0.5rem;
+            border-radius: var(--radius-lg);
             text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid var(--gray-200);
+            transition: all 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-light);
         }
 
         .stat-value {
-            font-size: 24px;
+            font-size: 1.5rem;
             font-weight: 700;
-            color: #667eea;
+            color: var(--primary);
+            line-height: 1.2;
         }
 
         .stat-label {
-            font-size: 12px;
-            color: #64748b;
-            margin-top: 5px;
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
-        .week-control {
-            background: #f0f4ff;
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 20px;
-            border: 2px solid #667eea20;
-        }
-
-        .week-header {
+        /* ========== WEEK DISPLAY (Everyone) ========== */
+        .week-container {
+            background: linear-gradient(135deg, var(--gray-100), white);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            justify-content: space-between;
+            border: 1px solid var(--gray-200);
         }
 
-        .current-week {
-            background: #667eea;
+        .week-badge {
+            background: var(--primary);
             color: white;
-            padding: 8px 20px;
-            border-radius: 40px;
+            padding: 0.5rem 1.5rem;
+            border-radius: 2rem;
             font-weight: 600;
-            font-size: 18px;
+            font-size: 1rem;
+            box-shadow: var(--shadow-md);
         }
 
         .live-indicator {
-            background: #10b981;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gray-600);
+            font-size: 0.875rem;
+        }
+
+        .live-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            background: var(--success);
+            border-radius: 50%;
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.7; }
-            100% { opacity: 1; }
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
-        .week-input-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .week-input {
-            flex: 2;
-            padding: 12px;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            font-size: 16px;
-        }
-
-        .week-input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .week-btn {
-            flex: 1;
-            padding: 12px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .week-btn:hover {
-            background: #5a67d8;
-        }
-
-        .week-btn.reset {
-            background: #f59e0b;
-        }
-
-        .week-btn.reset:hover {
-            background: #d97706;
-        }
-
+        /* ========== TIMER (Everyone) ========== */
         .timer-container {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 24px;
-            border-radius: 16px;
-            margin-bottom: 24px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
             text-align: center;
+            color: white;
             position: relative;
             overflow: hidden;
         }
@@ -173,128 +185,106 @@
         .timer-container::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
             background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
-            animation: shine 3s infinite;
+            animation: shine 6s infinite;
         }
 
         @keyframes shine {
-            0% { transform: translateX(-100%); }
-            20% { transform: translateX(100%); }
-            100% { transform: translateX(100%); }
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
 
         .timer-label {
-            font-size: 14px;
-            opacity: 0.9;
-            margin-bottom: 8px;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.1em;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
         }
 
         .timer-display {
-            font-size: 48px;
+            font-size: 3.5rem;
             font-weight: 700;
             font-family: 'Courier New', monospace;
-            line-height: 1.2;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         .timer-status {
-            font-size: 14px;
-            margin-top: 8px;
+            font-size: 0.875rem;
             opacity: 0.9;
         }
 
         .timer-container.expired {
-            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            background: linear-gradient(135deg, var(--danger), #b91c1c);
         }
 
         .timer-container.warning {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            background: linear-gradient(135deg, var(--warning), #d97706);
         }
 
-        .progress-container {
-            margin: 20px 0;
-        }
-
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: #64748b;
-            margin-bottom: 4px;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: #e5e7eb;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: #667eea;
-            border-radius: 4px;
-            transition: width 0.3s ease;
-        }
-
+        /* ========== FORM ELEMENTS (Everyone) ========== */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 1.25rem;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
-            color: #374151;
+            margin-bottom: 0.5rem;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 0.875rem;
+            color: var(--dark);
         }
 
         select {
             width: 100%;
-            padding: 16px;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            font-size: 16px;
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
             background: white;
             appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
             background-repeat: no-repeat;
-            background-position: right 16px center;
-            background-size: 16px;
+            background-position: right 1rem center;
+            background-size: 1rem;
+            transition: all 0.2s ease;
         }
 
         select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
         }
 
         select:disabled {
-            background-color: #f3f4f6;
+            background-color: var(--gray-100);
             cursor: not-allowed;
+            opacity: 0.7;
         }
 
+        /* ========== STATUS BUTTONS (Everyone) ========== */
         .status-group {
-            display: flex;
-            gap: 12px;
-            margin-top: 8px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
         }
 
         .status-btn {
-            flex: 1;
-            padding: 16px;
+            padding: 1rem;
             border: none;
-            border-radius: 12px;
-            font-size: 16px;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             color: white;
-            transition: all 0.3s;
+            transition: all 0.2s ease;
             position: relative;
             overflow: hidden;
         }
@@ -309,8 +299,7 @@
             background: rgba(255,255,255,0.5);
             opacity: 0;
             border-radius: 100%;
-            transform: scale(1, 1) translate(-50%);
-            transform-origin: 50% 50%;
+            transform: translate(-50%, -50%) scale(1);
         }
 
         .status-btn:active::after {
@@ -318,55 +307,53 @@
         }
 
         @keyframes ripple {
-            0% {
-                transform: scale(0, 0);
-                opacity: 0.5;
-            }
-            100% {
-                transform: scale(40, 40);
-                opacity: 0;
-            }
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            100% { transform: translate(-50%, -50%) scale(40); opacity: 0; }
         }
 
         .status-btn.present {
-            background: #059669;
+            background: linear-gradient(135deg, var(--success), #059669);
+            box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
         }
 
         .status-btn.absent {
-            background: #dc2626;
+            background: linear-gradient(135deg, var(--danger), #b91c1c);
+            box-shadow: 0 4px 6px rgba(239, 68, 68, 0.2);
         }
 
         .status-btn.selected {
             transform: scale(0.98);
             opacity: 0.9;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.5);
+            box-shadow: 0 0 0 3px var(--primary);
         }
 
         .status-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
+        /* ========== SUBMIT BUTTON (Everyone) ========== */
         .submit-btn {
             width: 100%;
-            padding: 18px;
-            background: #667eea;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 18px;
+            border-radius: var(--radius-md);
+            font-size: 1.125rem;
             font-weight: 600;
             cursor: pointer;
-            margin: 24px 0 16px;
-            transition: all 0.3s;
+            margin: 1.5rem 0;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-md);
             position: relative;
-            overflow: hidden;
         }
 
         .submit-btn:hover:not(:disabled) {
-            background: #5a67d8;
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+            box-shadow: var(--shadow-lg);
         }
 
         .submit-btn:disabled {
@@ -381,12 +368,12 @@
         .submit-btn.loading::after {
             content: '';
             position: absolute;
-            width: 20px;
-            height: 20px;
+            width: 1.25rem;
+            height: 1.25rem;
             top: 50%;
             left: 50%;
-            margin-left: -10px;
-            margin-top: -10px;
+            margin-left: -0.625rem;
+            margin-top: -0.625rem;
             border: 3px solid white;
             border-top-color: transparent;
             border-radius: 50%;
@@ -397,10 +384,11 @@
             to { transform: rotate(360deg); }
         }
 
+        /* ========== MESSAGE COMPONENT ========== */
         .message {
-            padding: 16px;
-            border-radius: 12px;
-            margin: 16px 0;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
             text-align: center;
             font-weight: 500;
             display: none;
@@ -408,176 +396,195 @@
         }
 
         @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-0.625rem); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .message.show {
+        .message.show { display: block; }
+        .message.success { background: #d4edda; color: #155724; border-left: 4px solid var(--success); }
+        .message.error { background: #f8d7da; color: #721c24; border-left: 4px solid var(--danger); }
+        .message.info { background: #d1ecf1; color: #0c5460; border-left: 4px solid var(--info); }
+
+        /* ========== ADMIN SECTIONS (Hidden by default) ========== */
+        .admin-only {
+            display: none;
+        }
+
+        .admin-only.show {
             display: block;
         }
 
-        .message.success {
-            background: #d4edda;
-            color: #155724;
-            border-left: 4px solid #059669;
-        }
-
-        .message.error {
-            background: #f8d7da;
-            color: #721c24;
-            border-left: 4px solid #dc2626;
-        }
-
-        .message.info {
-            background: #d1ecf1;
-            color: #0c5460;
-            border-left: 4px solid #3498db;
-        }
-
+        /* ========== ADMIN PANEL ========== */
         .admin-section {
-            margin-top: 30px;
-            border-top: 2px solid #e5e7eb;
-            padding-top: 20px;
+            margin-top: 2rem;
+            border-top: 2px solid var(--gray-200);
+            padding-top: 1.5rem;
         }
 
         .admin-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 1rem;
         }
 
         .admin-title {
             font-weight: 600;
-            color: #374151;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .admin-login-btn {
-            background: #9ca3af;
+            background: var(--secondary);
             color: white;
             border: none;
-            border-radius: 40px;
-            padding: 8px 16px;
-            font-size: 13px;
+            border-radius: 2rem;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s ease;
         }
 
         .admin-login-btn.active {
-            background: #667eea;
+            background: var(--primary);
+        }
+
+        .admin-login-btn:hover {
+            background: var(--primary);
         }
 
         .admin-panel {
-            background: #f9fafb;
-            border-radius: 12px;
-            padding: 20px;
-            display: none;
-        }
-
-        .admin-panel.show {
-            display: block;
+            background: linear-gradient(135deg, var(--gray-100), white);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            border: 1px solid var(--gray-200);
         }
 
         .admin-input {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            font-size: 14px;
+            padding: 0.75rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-md);
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+
+        .admin-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-top: 1rem;
         }
 
         .admin-btn {
-            width: 100%;
-            padding: 12px;
+            padding: 0.75rem;
             border: none;
-            border-radius: 8px;
-            font-size: 14px;
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
             font-weight: 600;
             cursor: pointer;
-            margin-bottom: 8px;
-            transition: all 0.3s;
-        }
-
-        .admin-btn.primary {
-            background: #667eea;
+            transition: all 0.2s ease;
             color: white;
         }
 
-        .admin-btn.primary:hover {
-            background: #5a67d8;
-        }
-
-        .admin-btn.secondary {
-            background: #9ca3af;
-            color: white;
-        }
-
-        .admin-btn.secondary:hover {
-            background: #8b95a9;
-        }
-
-        .admin-btn.success {
-            background: #059669;
-            color: white;
-        }
-
-        .admin-btn.success:hover {
-            background: #047857;
-        }
-
-        .admin-btn.warning {
-            background: #f59e0b;
-            color: white;
-        }
-
-        .admin-btn.warning:hover {
-            background: #d97706;
-        }
+        .admin-btn.primary { background: var(--primary); }
+        .admin-btn.primary:hover { background: var(--primary-dark); }
+        .admin-btn.secondary { background: var(--secondary); }
+        .admin-btn.secondary:hover { background: var(--gray-500); }
+        .admin-btn.success { background: var(--success); }
+        .admin-btn.success:hover { background: #059669; }
+        .admin-btn.warning { background: var(--warning); }
+        .admin-btn.warning:hover { background: #d97706; }
 
         .admin-status {
-            font-size: 13px;
-            padding: 8px;
-            border-radius: 8px;
-            margin-top: 8px;
+            font-size: 0.875rem;
+            padding: 0.75rem;
+            border-radius: var(--radius-md);
+            margin-top: 1rem;
             display: none;
         }
 
-        .admin-status.show {
-            display: block;
+        .admin-status.show { display: block; }
+        .admin-status.success { background: #d4edda; color: #155724; }
+        .admin-status.error { background: #f8d7da; color: #721c24; }
+
+        /* ========== ADMIN LISTS ========== */
+        .admin-list {
+            background: white;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--gray-200);
+            margin-top: 1rem;
+            overflow: hidden;
         }
 
-        .admin-status.success {
-            background: #d4edda;
-            color: #155724;
+        .list-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 0.75rem 1rem;
+            font-weight: 600;
         }
 
-        .admin-status.error {
-            background: #f8d7da;
-            color: #721c24;
+        .list-item {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s ease;
         }
 
+        .list-item:hover {
+            background: var(--gray-100);
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-item .badge {
+            background: var(--primary-light);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+        }
+
+        .list-item.present .badge {
+            background: var(--success);
+        }
+
+        .list-item.absent .badge {
+            background: var(--danger);
+        }
+
+        /* ========== FOOTER ========== */
         .footer {
             text-align: center;
-            margin-top: 20px;
-            color: rgba(255,255,255,0.9);
-            font-size: 12px;
+            margin-top: 1.5rem;
+            color: white;
+            font-size: 0.75rem;
+            opacity: 0.8;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="card">
-            <h1>📝 Ultimate Attendance</h1>
-            <div class="subtitle">Enterprise Grade System</div>
-            
-            <!-- Stats Cards -->
+            <!-- Header (Everyone) -->
+            <div class="header">
+                <h1>Enterprise Attendance</h1>
+                <div class="subtitle">Real-time tracking system</div>
+            </div>
+
+            <!-- Quick Stats (Everyone) -->
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-value" id="statTotal">0</div>
@@ -593,45 +600,23 @@
                 </div>
             </div>
 
-            <!-- Week Control Panel (Visible to all, but only admin can change) -->
-            <div class="week-control">
-                <div class="week-header">
-                    <div class="current-week" id="weekDisplay">Week 1</div>
-                    <span class="live-indicator" id="liveIndicator">🟢 LIVE</span>
-                </div>
-                
-                <!-- Week Input (Hidden by default, shown after admin login) -->
-                <div id="weekControlPanel" style="display: none;">
-                    <div style="font-size: 14px; color: #64748b; margin-bottom: 8px;">
-                        ✏️ Admin: Set Week Number
-                    </div>
-                    <div class="week-input-group">
-                        <input type="number" id="weekInput" class="week-input" placeholder="Enter week number (1-52)" min="1" max="52" value="1">
-                        <button class="week-btn" id="setWeekBtn">Set Week</button>
-                        <button class="week-btn reset" id="resetWeekBtn">Reset to Week 1</button>
-                    </div>
+            <!-- Week Display (Everyone) -->
+            <div class="week-container">
+                <div class="week-badge" id="weekDisplay">Week 1</div>
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    <span>LIVE</span>
                 </div>
             </div>
 
-            <!-- Timer -->
+            <!-- Timer (Everyone) -->
             <div class="timer-container" id="timerBox">
                 <div class="timer-label">SESSION TIMER</div>
                 <div class="timer-display" id="timerDisplay">30:00</div>
                 <div class="timer-status" id="timerStatus">Ready</div>
             </div>
 
-            <!-- Progress Bar -->
-            <div class="progress-container">
-                <div class="progress-label">
-                    <span>Today's Attendance</span>
-                    <span id="progressPercentage">0%</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
-                </div>
-            </div>
-
-            <!-- Student Selection -->
+            <!-- Student Selection (Everyone) -->
             <div class="form-group">
                 <label>🎓 Select Student ID</label>
                 <select id="studentSelect">
@@ -639,7 +624,7 @@
                 </select>
             </div>
 
-            <!-- Status Buttons -->
+            <!-- Status Buttons (Everyone) -->
             <div class="form-group">
                 <label>📋 Attendance Status</label>
                 <div class="status-group">
@@ -648,61 +633,177 @@
                 </div>
             </div>
 
-            <!-- Submit Button -->
+            <!-- Submit Button (Everyone) -->
             <button class="submit-btn" id="submitBtn" disabled>Submit Attendance</button>
 
-            <!-- Message Area -->
+            <!-- Message Area (Everyone) -->
             <div id="messageBox" class="message"></div>
 
-            <!-- Admin Panel -->
+            <!-- ========== ADMIN ONLY SECTIONS ========== -->
+            <!-- Week Control Panel (Admin Only) -->
+            <div id="weekControlPanel" class="admin-only">
+                <div class="admin-list">
+                    <div class="list-header">📅 Week Control Panel</div>
+                    <div class="list-item">
+                        <span>Current Week</span>
+                        <span class="badge" id="adminWeekDisplay">1</span>
+                    </div>
+                    <div class="list-item">
+                        <input type="number" id="weekInput" class="admin-input" placeholder="Enter week number" min="1" style="margin: 0;">
+                    </div>
+                    <div style="padding: 1rem; display: grid; gap: 0.5rem;">
+                        <button class="admin-btn primary" id="setWeekBtn">Set Week</button>
+                        <button class="admin-btn warning" id="resetWeekBtn">Reset to Week 1</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Today's Attendance List (Admin Only) -->
+            <div id="todayList" class="admin-only">
+                <div class="admin-list">
+                    <div class="list-header">📋 Today's Attendance</div>
+                    <div id="todayListContainer">
+                        <div class="list-item">No submissions yet</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Present Students List (Admin Only) -->
+            <div id="presentList" class="admin-only">
+                <div class="admin-list">
+                    <div class="list-header">✅ Present Today</div>
+                    <div id="presentListContainer">
+                        <div class="list-item">No present students</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Absent Students List (Admin Only) -->
+            <div id="absentList" class="admin-only">
+                <div class="admin-list">
+                    <div class="list-header">❌ Absent Today</div>
+                    <div id="absentListContainer">
+                        <div class="list-item">No absent students</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weekly Statistics (Admin Only) -->
+            <div id="weeklyStats" class="admin-only">
+                <div class="admin-list">
+                    <div class="list-header">📊 Weekly Statistics</div>
+                    <div class="list-item">
+                        <span>Present this week</span>
+                        <span class="badge" id="weekPresent">0</span>
+                    </div>
+                    <div class="list-item">
+                        <span>Absent this week</span>
+                        <span class="badge" id="weekAbsent">0</span>
+                    </div>
+                    <div class="list-item">
+                        <span>Total this week</span>
+                        <span class="badge" id="weekTotal">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Session Controls (Admin Only) -->
+            <div id="sessionControls" class="admin-only">
+                <div class="admin-list">
+                    <div class="list-header">⏱️ Session Controls</div>
+                    <div style="padding: 1rem; display: grid; gap: 0.5rem;">
+                        <button class="admin-btn secondary" id="resetSessionBtn">Reset Timer</button>
+                        <button class="admin-btn secondary" id="refreshStatsBtn">Refresh Stats</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Panel (Login Section) -->
             <div class="admin-section">
                 <div class="admin-header">
-                    <span class="admin-title">🔑 Admin Panel</span>
+                    <span class="admin-title">🔑 Administrator Access</span>
                     <button class="admin-login-btn" id="adminLoginBtn">Login</button>
                 </div>
 
                 <div class="admin-panel" id="adminPanel">
                     <input type="password" class="admin-input" id="adminPassword" placeholder="Enter admin password">
-                    <button class="admin-btn primary" id="verifyAdminBtn">Verify</button>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
-                        <button class="admin-btn secondary" id="startWeekBtn">📅 +1 Week</button>
-                        <button class="admin-btn warning" id="resetWeekTo1Btn">🔄 Reset to Week 1</button>
-                    </div>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
-                        <button class="admin-btn secondary" id="resetSessionBtn">🔄 Reset Timer</button>
-                        <button class="admin-btn success" id="refreshStatsBtn">📊 Refresh Stats</button>
-                    </div>
-                    
+                    <button class="admin-btn primary" id="verifyAdminBtn">Verify Credentials</button>
                     <div id="adminMessage" class="admin-status"></div>
                 </div>
             </div>
         </div>
 
         <div class="footer">
-            © 2025 Ultimate Attendance System • v3.0
+            © 2026 Enterprise Attendance System • Version 3.0
         </div>
     </div>
 
     <script>
-        // ==================== CONFIGURATION ====================
-        const SHEET_ID = '1448GaL5IOaQh9k3wxVUUimKHw_CwkB7YcDL5867ZfDo';
-        const API_KEY = 'AIzaSyAGHDExnMNd-qzciQqz3DR_VYwzOAriPhE';
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxCDzqJ_jZxU69hwsjkiFUeeq5ESiWrbVDFdq8Z5a-g7u0uUnK0p9BlshkfwrwFJXTeJw/exec';
-        const ADMIN_PASSWORD = 'admin123';
-        
-        // ==================== STATE MANAGEMENT ====================
-        let selectedStatus = '';
-        let sessionActive = true;
-        let isAdmin = false;
-        let currentWeek = 1;
-        let usedIds = new Set();
-        let firstSubmissionTime = null;
-        let timerInterval;
-        let students = [];
+        // ========== CONFIGURATION ==========
+        const CONFIG = {
+            SHEET_ID: '1448GaL5IOaQh9k3wxVUUimKHw_CwkB7YcDL5867ZfDo',
+            API_KEY: 'AIzaSyAGHDExnMNd-qzciQqz3DR_VYwzOAriPhE',
+            APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxCDzqJ_jZxU69hwsjkiFUeeq5ESiWrbVDFdq8Z5a-g7u0uUnK0p9BlshkfwrwFJXTeJw/exec',
+            ADMIN_PASSWORD: 'admin123'
+        };
 
-        // ==================== INITIALIZATION ====================
+        // ========== STATE MANAGEMENT ==========
+        let state = {
+            selectedStatus: '',
+            sessionActive: true,
+            isAdmin: false,
+            currentWeek: 1,
+            usedIds: new Set(),
+            firstSubmissionTime: null,
+            students: [],
+            timerInterval: null,
+            statsInterval: null
+        };
+
+        // ========== DOM ELEMENTS ==========
+        const elements = {
+            weekDisplay: document.getElementById('weekDisplay'),
+            timerDisplay: document.getElementById('timerDisplay'),
+            timerStatus: document.getElementById('timerStatus'),
+            timerBox: document.getElementById('timerBox'),
+            studentSelect: document.getElementById('studentSelect'),
+            presentBtn: document.getElementById('presentBtn'),
+            absentBtn: document.getElementById('absentBtn'),
+            submitBtn: document.getElementById('submitBtn'),
+            messageBox: document.getElementById('messageBox'),
+            adminLoginBtn: document.getElementById('adminLoginBtn'),
+            adminPanel: document.getElementById('adminPanel'),
+            adminPassword: document.getElementById('adminPassword'),
+            verifyAdminBtn: document.getElementById('verifyAdminBtn'),
+            adminMessage: document.getElementById('adminMessage'),
+            statTotal: document.getElementById('statTotal'),
+            statPresent: document.getElementById('statPresent'),
+            statAbsent: document.getElementById('statAbsent'),
+            adminWeekDisplay: document.getElementById('adminWeekDisplay'),
+            weekInput: document.getElementById('weekInput'),
+            setWeekBtn: document.getElementById('setWeekBtn'),
+            resetWeekBtn: document.getElementById('resetWeekBtn'),
+            resetSessionBtn: document.getElementById('resetSessionBtn'),
+            refreshStatsBtn: document.getElementById('refreshStatsBtn'),
+            todayListContainer: document.getElementById('todayListContainer'),
+            presentListContainer: document.getElementById('presentListContainer'),
+            absentListContainer: document.getElementById('absentListContainer'),
+            weekPresent: document.getElementById('weekPresent'),
+            weekAbsent: document.getElementById('weekAbsent'),
+            weekTotal: document.getElementById('weekTotal')
+        };
+
+        // ========== ADMIN ONLY ELEMENTS ==========
+        const adminSections = [
+            'weekControlPanel',
+            'todayList',
+            'presentList',
+            'absentList',
+            'weeklyStats',
+            'sessionControls'
+        ].map(id => document.getElementById(id));
+
+        // ========== INITIALIZATION ==========
         window.addEventListener('load', () => {
             loadWeekFromSheet();
             loadStudents();
@@ -710,33 +811,43 @@
             startTimer();
             setupEventListeners();
             updateStats();
+            updateAdminSections();
         });
 
-        // ==================== SETUP EVENT LISTENERS ====================
+        // ========== EVENT LISTENERS ==========
         function setupEventListeners() {
-            document.getElementById('presentBtn').addEventListener('click', () => selectStatus('Present'));
-            document.getElementById('absentBtn').addEventListener('click', () => selectStatus('Absent'));
-            document.getElementById('studentSelect').addEventListener('change', updateSubmitButton);
-            document.getElementById('submitBtn').addEventListener('click', submitAttendance);
-            document.getElementById('adminLoginBtn').addEventListener('click', toggleAdminLogin);
-            document.getElementById('verifyAdminBtn').addEventListener('click', verifyAdmin);
-            document.getElementById('startWeekBtn').addEventListener('click', incrementWeek);
-            document.getElementById('resetWeekTo1Btn').addEventListener('click', resetWeekTo1);
-            document.getElementById('resetSessionBtn').addEventListener('click', resetSession);
-            document.getElementById('refreshStatsBtn').addEventListener('click', refreshStats);
-            document.getElementById('setWeekBtn').addEventListener('click', setWeekFromInput);
-            document.getElementById('resetWeekBtn').addEventListener('click', resetWeekTo1);
+            elements.presentBtn.addEventListener('click', () => selectStatus('Present'));
+            elements.absentBtn.addEventListener('click', () => selectStatus('Absent'));
+            elements.studentSelect.addEventListener('change', updateSubmitButton);
+            elements.submitBtn.addEventListener('click', submitAttendance);
+            elements.adminLoginBtn.addEventListener('click', toggleAdminLogin);
+            elements.verifyAdminBtn.addEventListener('click', verifyAdmin);
+            if (elements.setWeekBtn) elements.setWeekBtn.addEventListener('click', setWeekFromInput);
+            if (elements.resetWeekBtn) elements.resetWeekBtn.addEventListener('click', resetWeekTo1);
+            if (elements.resetSessionBtn) elements.resetSessionBtn.addEventListener('click', resetSession);
+            if (elements.refreshStatsBtn) elements.refreshStatsBtn.addEventListener('click', refreshStats);
         }
 
-        // ==================== WEEK FUNCTIONS ====================
+        // ========== ADMIN VISIBILITY CONTROL ==========
+        function updateAdminSections() {
+            adminSections.forEach(section => {
+                if (state.isAdmin) {
+                    section.classList.add('show');
+                } else {
+                    section.classList.remove('show');
+                }
+            });
+        }
+
+        // ========== WEEK FUNCTIONS ==========
         async function loadWeekFromSheet() {
             try {
-                const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Settings!B1?key=${API_KEY}`;
+                const url = `https://sheets.googleapis.com/v4/spreadsheets/${CONFIG.SHEET_ID}/values/Settings!B1?key=${CONFIG.API_KEY}`;
                 const response = await fetch(url);
                 const data = await response.json();
                 
                 if (data.values && data.values[0]) {
-                    currentWeek = parseInt(data.values[0][0]);
+                    state.currentWeek = parseInt(data.values[0][0]);
                     updateWeekDisplay();
                 }
             } catch (error) {
@@ -744,27 +855,34 @@
             }
         }
 
+        function updateWeekDisplay() {
+            elements.weekDisplay.textContent = `Week ${state.currentWeek}`;
+            if (elements.adminWeekDisplay) {
+                elements.adminWeekDisplay.textContent = state.currentWeek;
+            }
+            if (elements.weekInput) {
+                elements.weekInput.value = state.currentWeek;
+            }
+        }
+
         async function updateWeekInSheet(newWeek) {
             try {
-                const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Settings!B1?valueInputOption=USER_ENTERED&key=${API_KEY}`;
+                const url = `https://sheets.googleapis.com/v4/spreadsheets/${CONFIG.SHEET_ID}/values/Settings!B1?valueInputOption=USER_ENTERED&key=${CONFIG.API_KEY}`;
                 
                 await fetch(url, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        values: [[newWeek]]
-                    })
+                    body: JSON.stringify({ values: [[newWeek]] })
                 });
                 
-                currentWeek = newWeek;
+                state.currentWeek = newWeek;
                 updateWeekDisplay();
                 showMessage(`✅ Week updated to ${newWeek}`, 'success');
                 
-                // Reset session when week changes
-                firstSubmissionTime = null;
+                state.firstSubmissionTime = null;
                 localStorage.removeItem('firstSubmission');
-                sessionActive = true;
-                usedIds.clear();
+                state.sessionActive = true;
+                state.usedIds.clear();
                 loadStudents();
                 
             } catch (error) {
@@ -773,104 +891,48 @@
             }
         }
 
-        function updateWeekDisplay() {
-            document.getElementById('weekDisplay').textContent = `Week ${currentWeek}`;
-            document.getElementById('weekInput').value = currentWeek;
-        }
-
-        async function incrementWeek() {
-            if (!isAdmin) {
-                showAdminMessage('Please login first', 'error');
-                return;
+        async function setWeekFromInput() {
+            if (!state.isAdmin) return;
+            const newWeek = parseInt(elements.weekInput.value);
+            if (newWeek >= 1 && newWeek <= 52) {
+                await updateWeekInSheet(newWeek);
+                showAdminMessage(`✅ Week set to ${newWeek}`, 'success');
+            } else {
+                showAdminMessage('❌ Enter a valid week (1-52)', 'error');
             }
-            const newWeek = currentWeek + 1;
-            await updateWeekInSheet(newWeek);
-            showAdminMessage(`✅ Week ${newWeek} started`, 'success');
         }
 
         async function resetWeekTo1() {
-            if (!isAdmin) {
-                showAdminMessage('Please login first', 'error');
-                return;
-            }
-            if (confirm('Reset to Week 1? This will clear all used IDs and reset the timer.')) {
+            if (!state.isAdmin) return;
+            if (confirm('Reset to Week 1?')) {
                 await updateWeekInSheet(1);
                 showAdminMessage('✅ Reset to Week 1', 'success');
             }
         }
 
-        async function setWeekFromInput() {
-            if (!isAdmin) {
-                showAdminMessage('Please login first', 'error');
-                return;
-            }
-            const newWeek = parseInt(document.getElementById('weekInput').value);
-            if (newWeek >= 1 && newWeek <= 52) {
-                await updateWeekInSheet(newWeek);
-                showAdminMessage(`✅ Week set to ${newWeek}`, 'success');
-            } else {
-                showAdminMessage('❌ Please enter a valid week (1-52)', 'error');
-            }
-        }
-
-        // ==================== STATS FUNCTIONS ====================
-        async function updateStats() {
-            try {
-                const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Attendance?key=${API_KEY}`;
-                const response = await fetch(url);
-                const data = await response.json();
-                
-                if (data.values) {
-                    const totalStudents = students.length;
-                    const today = new Date().toLocaleDateString('en-US');
-                    
-                    let presentToday = 0;
-                    let absentToday = 0;
-                    
-                    data.values.forEach(row => {
-                        if (row[1] === today && row[2] == currentWeek) {
-                            if (row[5] === 'Present') presentToday++;
-                            if (row[5] === 'Absent') absentToday++;
-                        }
-                    });
-                    
-                    document.getElementById('statTotal').textContent = totalStudents;
-                    document.getElementById('statPresent').textContent = presentToday;
-                    document.getElementById('statAbsent').textContent = absentToday;
-                    
-                    const percentage = totalStudents > 0 ? (presentToday / totalStudents) * 100 : 0;
-                    document.getElementById('progressFill').style.width = percentage + '%';
-                    document.getElementById('progressPercentage').textContent = Math.round(percentage) + '%';
-                }
-            } catch (error) {
-                console.error('Error updating stats:', error);
-            }
-        }
-
-        // ==================== STUDENT FUNCTIONS ====================
+        // ========== STUDENT FUNCTIONS ==========
         async function loadStudents() {
             try {
-                const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/StudentData!A2:B?key=${API_KEY}`;
+                const url = `https://sheets.googleapis.com/v4/spreadsheets/${CONFIG.SHEET_ID}/values/StudentData!A2:B?key=${CONFIG.API_KEY}`;
                 const response = await fetch(url);
                 const data = await response.json();
                 
-                const select = document.getElementById('studentSelect');
-                select.innerHTML = '<option value="">Select Student ID</option>';
+                elements.studentSelect.innerHTML = '<option value="">Select Student ID</option>';
                 
                 if (data.values && data.values.length > 0) {
-                    students = data.values;
+                    state.students = data.values;
                     data.values.forEach(row => {
                         if (row[0] && row[1]) {
                             const option = document.createElement('option');
                             option.value = row[0];
                             option.textContent = row[0];
                             option.setAttribute('data-name', row[1]);
-                            if (usedIds.has(row[0])) {
+                            if (state.usedIds.has(row[0])) {
                                 option.disabled = true;
                                 option.style.color = '#999';
                                 option.textContent += ' ✓';
                             }
-                            select.appendChild(option);
+                            elements.studentSelect.appendChild(option);
                         }
                     });
                     updateStats();
@@ -881,66 +943,65 @@
         }
 
         function selectStatus(status) {
-            selectedStatus = status;
-            document.getElementById('presentBtn').classList.toggle('selected', status === 'Present');
-            document.getElementById('absentBtn').classList.toggle('selected', status === 'Absent');
+            state.selectedStatus = status;
+            elements.presentBtn.classList.toggle('selected', status === 'Present');
+            elements.absentBtn.classList.toggle('selected', status === 'Absent');
             updateSubmitButton();
         }
 
         function updateSubmitButton() {
-            const studentId = document.getElementById('studentSelect').value;
-            document.getElementById('submitBtn').disabled = !(studentId && selectedStatus && sessionActive);
+            const studentId = elements.studentSelect.value;
+            elements.submitBtn.disabled = !(studentId && state.selectedStatus && state.sessionActive);
         }
 
-        // ==================== ATTENDANCE FUNCTIONS ====================
+        // ========== ATTENDANCE FUNCTIONS ==========
         async function submitAttendance() {
-            const select = document.getElementById('studentSelect');
+            const select = elements.studentSelect;
             const studentId = select.value;
             const studentName = select.selectedOptions[0].getAttribute('data-name');
 
-            if (!studentId || !selectedStatus) return;
+            if (!studentId || !state.selectedStatus) return;
 
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.classList.add('loading');
-            submitBtn.textContent = '';
+            elements.submitBtn.disabled = true;
+            elements.submitBtn.classList.add('loading');
+            elements.submitBtn.textContent = '';
 
             const now = new Date();
             const dateStr = now.toLocaleDateString('en-US');
             const timeStr = now.toLocaleTimeString('en-US');
 
-            if (!firstSubmissionTime) {
-                firstSubmissionTime = now.getTime();
-                localStorage.setItem('firstSubmission', firstSubmissionTime.toString());
+            if (!state.firstSubmissionTime) {
+                state.firstSubmissionTime = now.getTime();
+                localStorage.setItem('firstSubmission', state.firstSubmissionTime.toString());
             }
 
             try {
-                await fetch(APPS_SCRIPT_URL, {
+                await fetch(CONFIG.APPS_SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         timestamp: timeStr,
                         date: dateStr,
-                        week: currentWeek,
+                        week: state.currentWeek,
                         studentId: studentId,
                         studentName: studentName,
-                        status: selectedStatus
+                        status: state.selectedStatus
                     })
                 });
 
                 showMessage('✅ Attendance recorded!', 'success');
                 
-                usedIds.add(studentId);
+                state.usedIds.add(studentId);
                 const option = select.options[select.selectedIndex];
                 option.disabled = true;
                 option.style.color = '#999';
                 option.textContent += ' ✓';
                 
                 select.value = '';
-                selectedStatus = '';
-                document.getElementById('presentBtn').classList.remove('selected');
-                document.getElementById('absentBtn').classList.remove('selected');
+                state.selectedStatus = '';
+                elements.presentBtn.classList.remove('selected');
+                elements.absentBtn.classList.remove('selected');
                 
                 updateStats();
                 
@@ -948,110 +1009,230 @@
                 console.error('Error:', error);
                 showMessage('❌ Error: ' + error.message, 'error');
             } finally {
-                submitBtn.classList.remove('loading');
-                submitBtn.textContent = 'Submit Attendance';
+                elements.submitBtn.classList.remove('loading');
+                elements.submitBtn.textContent = 'Submit Attendance';
                 updateSubmitButton();
             }
         }
 
-        // ==================== TIMER FUNCTIONS ====================
+        // ========== STATS FUNCTIONS ==========
+        async function updateStats() {
+            try {
+                const url = `https://sheets.googleapis.com/v4/spreadsheets/${CONFIG.SHEET_ID}/values/Attendance?key=${CONFIG.API_KEY}`;
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.values) {
+                    const totalStudents = state.students.length;
+                    const today = new Date().toLocaleDateString('en-US');
+                    
+                    let presentToday = 0;
+                    let absentToday = 0;
+                    let weekPresent = 0;
+                    let weekAbsent = 0;
+                    const todaySubmissions = [];
+                    const presentStudents = [];
+                    const absentStudents = [];
+                    
+                    data.values.forEach(row => {
+                        if (row[1] === today && row[2] == state.currentWeek) {
+                            todaySubmissions.push({
+                                id: row[3],
+                                name: row[4],
+                                status: row[5],
+                                time: row[0]
+                            });
+                            
+                            if (row[5] === 'Present') {
+                                presentToday++;
+                                presentStudents.push({ id: row[3], name: row[4] });
+                            }
+                            if (row[5] === 'Absent') {
+                                absentToday++;
+                                absentStudents.push({ id: row[3], name: row[4] });
+                            }
+                        }
+                        
+                        if (row[2] == state.currentWeek) {
+                            if (row[5] === 'Present') weekPresent++;
+                            if (row[5] === 'Absent') weekAbsent++;
+                        }
+                    });
+                    
+                    // Update stats (everyone)
+                    elements.statTotal.textContent = totalStudents;
+                    elements.statPresent.textContent = presentToday;
+                    elements.statAbsent.textContent = absentToday;
+                    
+                    // Update admin stats
+                    if (elements.weekPresent) elements.weekPresent.textContent = weekPresent;
+                    if (elements.weekAbsent) elements.weekAbsent.textContent = weekAbsent;
+                    if (elements.weekTotal) elements.weekTotal.textContent = weekPresent + weekAbsent;
+                    
+                    // Update admin lists
+                    updateTodayList(todaySubmissions);
+                    updatePresentList(presentStudents);
+                    updateAbsentList(absentStudents);
+                }
+            } catch (error) {
+                console.error('Error updating stats:', error);
+            }
+        }
+
+        function updateTodayList(submissions) {
+            if (!elements.todayListContainer) return;
+            
+            if (submissions.length === 0) {
+                elements.todayListContainer.innerHTML = '<div class="list-item">No submissions today</div>';
+                return;
+            }
+            
+            let html = '';
+            submissions.forEach(sub => {
+                const statusClass = sub.status === 'Present' ? 'present' : 'absent';
+                html += `
+                    <div class="list-item ${statusClass}">
+                        <span>${sub.id} - ${sub.name}</span>
+                        <span class="badge ${statusClass}">${sub.status}</span>
+                    </div>
+                `;
+            });
+            elements.todayListContainer.innerHTML = html;
+        }
+
+        function updatePresentList(students) {
+            if (!elements.presentListContainer) return;
+            
+            if (students.length === 0) {
+                elements.presentListContainer.innerHTML = '<div class="list-item">No present students</div>';
+                return;
+            }
+            
+            let html = '';
+            students.forEach(s => {
+                html += `
+                    <div class="list-item present">
+                        <span>${s.id} - ${s.name}</span>
+                        <span class="badge present">Present</span>
+                    </div>
+                `;
+            });
+            elements.presentListContainer.innerHTML = html;
+        }
+
+        function updateAbsentList(students) {
+            if (!elements.absentListContainer) return;
+            
+            if (students.length === 0) {
+                elements.absentListContainer.innerHTML = '<div class="list-item">No absent students</div>';
+                return;
+            }
+            
+            let html = '';
+            students.forEach(s => {
+                html += `
+                    <div class="list-item absent">
+                        <span>${s.id} - ${s.name}</span>
+                        <span class="badge absent">Absent</span>
+                    </div>
+                `;
+            });
+            elements.absentListContainer.innerHTML = html;
+        }
+
+        // ========== TIMER FUNCTIONS ==========
         function loadSessionState() {
             const saved = localStorage.getItem('firstSubmission');
             if (saved) {
-                firstSubmissionTime = parseInt(saved);
+                state.firstSubmissionTime = parseInt(saved);
             }
         }
 
         function startTimer() {
             updateTimer();
-            timerInterval = setInterval(updateTimer, 1000);
+            state.timerInterval = setInterval(updateTimer, 1000);
         }
 
         function updateTimer() {
-            if (!firstSubmissionTime) {
-                document.getElementById('timerDisplay').textContent = '30:00';
-                document.getElementById('timerStatus').textContent = 'Ready';
+            if (!state.firstSubmissionTime) {
+                elements.timerDisplay.textContent = '30:00';
+                elements.timerStatus.textContent = 'Ready';
                 return;
             }
 
-            const now = new Date().getTime();
-            const elapsed = (now - firstSubmissionTime) / 1000 / 60;
+            const now = Date.now();
+            const elapsed = (now - state.firstSubmissionTime) / 1000 / 60;
             const remaining = Math.max(0, 30 - elapsed);
             const mins = Math.floor(remaining);
             const secs = Math.floor((remaining - mins) * 60);
 
-            document.getElementById('timerDisplay').textContent = 
+            elements.timerDisplay.textContent = 
                 `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 
             if (remaining <= 0) {
-                sessionActive = false;
-                document.getElementById('timerBox').classList.add('expired');
-                document.getElementById('timerStatus').textContent = 'Expired';
-                
-                document.getElementById('studentSelect').disabled = true;
-                document.getElementById('presentBtn').disabled = true;
-                document.getElementById('absentBtn').disabled = true;
+                state.sessionActive = false;
+                elements.timerBox.classList.add('expired');
+                elements.timerStatus.textContent = 'Expired';
+                elements.studentSelect.disabled = true;
+                elements.presentBtn.disabled = true;
+                elements.absentBtn.disabled = true;
             } else if (remaining < 5) {
-                document.getElementById('timerBox').classList.add('warning');
-                document.getElementById('timerStatus').textContent = `${mins} min remaining - Hurry!`;
+                elements.timerBox.classList.add('warning');
+                elements.timerStatus.textContent = `${mins} min remaining - Hurry!`;
             } else {
-                document.getElementById('timerBox').classList.remove('expired', 'warning');
-                document.getElementById('timerStatus').textContent = `${mins} min remaining`;
+                elements.timerBox.classList.remove('expired', 'warning');
+                elements.timerStatus.textContent = `${mins} min remaining`;
             }
             
             updateSubmitButton();
         }
 
-        // ==================== MESSAGE FUNCTIONS ====================
+        // ========== MESSAGE FUNCTIONS ==========
         function showMessage(text, type) {
-            const msg = document.getElementById('messageBox');
-            msg.textContent = text;
-            msg.className = 'message ' + type + ' show';
-            setTimeout(() => msg.classList.remove('show'), 3000);
+            elements.messageBox.textContent = text;
+            elements.messageBox.className = `message ${type} show`;
+            setTimeout(() => elements.messageBox.classList.remove('show'), 3000);
         }
 
-        // ==================== ADMIN FUNCTIONS ====================
+        // ========== ADMIN FUNCTIONS ==========
         function toggleAdminLogin() {
-            const panel = document.getElementById('adminPanel');
-            const btn = document.getElementById('adminLoginBtn');
-            panel.classList.toggle('show');
-            btn.textContent = panel.classList.contains('show') ? 'Cancel' : 'Login';
-            btn.classList.toggle('active');
+            elements.adminPanel.classList.toggle('show');
+            const isShowing = elements.adminPanel.classList.contains('show');
+            elements.adminLoginBtn.textContent = isShowing ? 'Cancel' : 'Login';
+            elements.adminLoginBtn.classList.toggle('active', isShowing);
             
-            if (!panel.classList.contains('show')) {
-                document.getElementById('adminPassword').value = '';
+            if (!isShowing) {
+                elements.adminPassword.value = '';
             }
         }
 
         function verifyAdmin() {
-            const password = document.getElementById('adminPassword').value;
-            if (password === ADMIN_PASSWORD) {
-                isAdmin = true;
-                showAdminMessage('✅ Admin access granted', 'success');
-                document.getElementById('verifyAdminBtn').style.display = 'none';
-                document.getElementById('weekControlPanel').style.display = 'block';
+            const password = elements.adminPassword.value;
+            if (password === CONFIG.ADMIN_PASSWORD) {
+                state.isAdmin = true;
+                showAdminMessage('✅ Access granted', 'success');
+                elements.verifyAdminBtn.style.display = 'none';
+                updateAdminSections();
                 showMessage('Admin mode activated', 'success');
+                toggleAdminLogin();
             } else {
                 showAdminMessage('❌ Invalid password', 'error');
             }
         }
 
         function resetSession() {
-            if (!isAdmin) {
-                showAdminMessage('Please login first', 'error');
-                return;
-            }
+            if (!state.isAdmin) return;
             if (confirm('Reset current session?')) {
-                firstSubmissionTime = null;
+                state.firstSubmissionTime = null;
                 localStorage.removeItem('firstSubmission');
-                sessionActive = true;
+                state.sessionActive = true;
                 
-                document.getElementById('timerBox').classList.remove('expired', 'warning');
-                document.getElementById('timerDisplay').textContent = '30:00';
-                document.getElementById('timerStatus').textContent = 'Ready';
-                document.getElementById('studentSelect').disabled = false;
-                document.getElementById('presentBtn').disabled = false;
-                document.getElementById('absentBtn').disabled = false;
+                elements.timerBox.classList.remove('expired', 'warning');
+                elements.timerDisplay.textContent = '30:00';
+                elements.timerStatus.textContent = 'Ready';
+                elements.studentSelect.disabled = false;
+                elements.presentBtn.disabled = false;
+                elements.absentBtn.disabled = false;
                 
                 showAdminMessage('✅ Session reset', 'success');
                 updateSubmitButton();
@@ -1059,19 +1240,15 @@
         }
 
         function refreshStats() {
-            if (!isAdmin) {
-                showAdminMessage('Please login first', 'error');
-                return;
-            }
+            if (!state.isAdmin) return;
             updateStats();
             showAdminMessage('📊 Stats refreshed', 'success');
         }
 
         function showAdminMessage(text, type) {
-            const msg = document.getElementById('adminMessage');
-            msg.textContent = text;
-            msg.className = 'admin-status ' + type + ' show';
-            setTimeout(() => msg.classList.remove('show'), 3000);
+            elements.adminMessage.textContent = text;
+            elements.adminMessage.className = `admin-status ${type} show`;
+            setTimeout(() => elements.adminMessage.classList.remove('show'), 3000);
         }
     </script>
 </body>
